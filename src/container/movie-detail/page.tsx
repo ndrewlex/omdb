@@ -31,7 +31,7 @@ const MovieDetail = () => {
 
   useEffect(() => {
     getMovie({ i: id });
-  }, [getMovie, id]);
+  }, []);
 
   const {
     Poster,

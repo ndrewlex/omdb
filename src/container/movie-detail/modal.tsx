@@ -34,7 +34,7 @@ const MovieModal: FunctionComponent<IMovieModal> = ({ imdbID, onClose }) => {
 
   useEffect(() => {
     getMovie({ i: imdbID });
-  }, [getMovie, imdbID]);
+  }, []);
 
   const {
     Title,

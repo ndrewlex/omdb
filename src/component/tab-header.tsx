@@ -13,7 +13,7 @@ const Item = styled(NavLink)`
   background-color: white;
   color: black;
   &.selected {
-    background-color: gray;
+    background-color: #ccc;
   }
   &:hover {
     color: black;

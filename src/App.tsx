@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 `;
 
 const PageWrapper = styled.div`
-  padding: 2rem 4rem;
+  padding: 5vw;
   /* background-color: ${(props) => props.theme.color.lightGray}; */
   @media (max-width: 768px) {
     padding: 1rem;

@@ -1,7 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import MovieTable from 'container/movie-table';
-import { IMovieData, IMovieTableRow } from 'hooks/use-fetch-movie';
+import { IMovieReducerState } from 'redux/reducers/movie';
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,20 +12,10 @@ const Wrapper = styled.div`
   }
 `;
 
-const favouriteList: IMovieTableRow[] = [
-  {
-    Title: 'spider',
-    imdbID: 'tt0278731',
-    Year: '2009',
-  },
-  {
-    Title: 'Taken',
-    imdbID: 'tt0936501',
-    Year: '2010',
-  },
-];
-
 const FavouritePage = () => {
+  const favouriteList = useSelector(
+    (state: IMovieReducerState) => state.favouriteMovieList
+  );
   return (
     <Wrapper>
       <MovieTable movieList={favouriteList} />

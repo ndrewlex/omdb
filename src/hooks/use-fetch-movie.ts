@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import request from './use-fetch';
 
-interface IGetParams {
+export interface IGetParams {
   t?: string;
   i?: string;
 }
@@ -41,7 +41,7 @@ export interface IMovieData {
 export interface IMovieTableRow {
   Title: string;
   Year: string;
-  imdbID: string;
+  imdbID: string | any;
   isFavourite?: boolean;
 }
 

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MovieTable from 'container/movie-table';
 import useFetchMovie from 'hooks/use-fetch-movie';
-import { useLocation } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: flex;

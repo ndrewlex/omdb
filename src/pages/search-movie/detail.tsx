@@ -1,8 +1,8 @@
 import React from 'react';
-import MovieDetail from 'container/movie-detail';
+import MovieDetailPage from 'container/movie-detail/page';
 
 const SearchMovieDetailPage = () => {
-  return <MovieDetail />;
+  return <MovieDetailPage />;
 };
 
 export default SearchMovieDetailPage;

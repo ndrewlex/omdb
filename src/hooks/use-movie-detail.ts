@@ -49,6 +49,7 @@ export const useMovieDetail = () => {
     if (payload && !error) {
       const { Error, Response, ...restData } = payload ?? {};
       // console.log({ movieData });
+      console.log({ error });
       if (!Error && Response === 'True') {
         setMovieData(restData);
       } else {
@@ -60,6 +61,8 @@ export const useMovieDetail = () => {
     }
     setLoading(false);
   };
+
+  console.log({ error });
 
   return {
     getMovie,

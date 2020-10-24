@@ -1,4 +1,4 @@
-import { TOGGLE_FAVOURITE_MOVIE, GET_SEARCH_MOVIE } from '../action-types';
+import { TOGGLE_FAVOURITE_MOVIE } from '../action-types';
 
 export interface IMovieTableRow {
   Title: string;
@@ -19,7 +19,7 @@ interface IActionType {
   payload: any;
 }
 
-export default function (state = initialState, action: IActionType) {
+export default (state = initialState, action: IActionType) => {
   switch (action.type) {
     case TOGGLE_FAVOURITE_MOVIE: {
       const { imdbID, isFavourite, ...rest }: IMovieTableRow = action.payload;
@@ -47,4 +47,4 @@ export default function (state = initialState, action: IActionType) {
     default:
       return state;
   }
-}
+};

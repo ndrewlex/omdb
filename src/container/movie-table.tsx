@@ -1,10 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import Table, { ITableHeaderProps } from 'component/table';
 import { AiFillStar as FavIcon } from 'react-icons/ai';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { IMovieTableRow } from 'redux/reducers/movie';
+import MovieDetailModal from './movie-detail/modal';
 
 interface FavWrapper {
   isActive?: boolean;
@@ -14,6 +15,12 @@ const FavWrapper = styled.div<FavWrapper>`
     font-size: 1rem;
     fill: ${(props) => (props.isActive ? '#d7d72b' : '#ccc')};
   }
+`;
+
+const LinkStyled = styled.a`
+  color: blue;
+  text-decoration: 'underline';
+  cursor: pointer;
 `;
 
 interface IMovieTable {
@@ -27,13 +34,16 @@ const MovieTable: FunctionComponent<IMovieTable> = ({
   loading = false,
 }) => {
   const location = useLocation();
+  const [selectedImdbId, setSelectedImdbId] = useState<any>(null);
 
   const header: ITableHeaderProps[] = [
     {
       label: 'Title',
       Cell: (row: IMovieTableRow) => {
         return (
-          <Link to={`${location.pathname}/${row.imdbID}`}>{row.Title}</Link>
+          <LinkStyled onClick={() => setSelectedImdbId(row.imdbID)}>
+            {row.Title}
+          </LinkStyled>
         );
       },
     },
@@ -46,7 +56,12 @@ const MovieTable: FunctionComponent<IMovieTable> = ({
       accessor: 'imdbID',
     },
     {
-      // accessor: 'favicon',
+      label: 'Detail',
+      Cell: (row: IMovieTableRow) => {
+        return <Link to={`${location.pathname}/${row.imdbID}`}>View</Link>;
+      },
+    },
+    {
       Cell: (row: IMovieTableRow) => {
         const { isFavourite = false } = row;
         return (
@@ -61,7 +76,17 @@ const MovieTable: FunctionComponent<IMovieTable> = ({
     },
   ];
 
-  return <Table header={header} data={movieList} />;
+  return (
+    <div>
+      <Table header={header} data={movieList} />
+      {selectedImdbId !== null && (
+        <MovieDetailModal
+          imdbID={selectedImdbId}
+          onClose={() => setSelectedImdbId(null)}
+        />
+      )}
+    </div>
+  );
 };
 
 export default MovieTable;

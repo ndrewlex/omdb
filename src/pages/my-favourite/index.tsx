@@ -31,7 +31,7 @@ const FavouritePage = () => {
       <MovieTable
         movieList={favouriteList}
         onToggleFavourite={onToggleFavourite}
-        loading={false}
+        loading={true}
       />
     </Wrapper>
   );

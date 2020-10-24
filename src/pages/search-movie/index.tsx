@@ -1,5 +1,5 @@
 import SearchBar from 'component/search-bar';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import MovieTable from 'container/movie-table';
 import useSearchMovie from 'hooks/use-search-movie';
@@ -21,19 +21,12 @@ const Header = styled.div`
 const SearchMoviePage = () => {
   const { getMovie, movieList, loading, onToggleFavourite } = useSearchMovie();
   const [title, setTitle] = useState('');
-  const [search, setSearch] = useState({});
-
-  useEffect(() => {
-    if (search) {
-      getMovie(search);
-    }
-  }, [search]);
 
   const onChange = (e: any) => {
     setTitle(e.target.value);
   };
   const onSearch = () => {
-    setSearch({ t: title });
+    getMovie({ t: title });
   };
 
   return (

@@ -1,35 +1,32 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent } from 'react';
 import Table, { ITableHeaderProps } from 'component/table';
 import { AiFillStar as FavIcon } from 'react-icons/ai';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { IMovieTableRow } from 'hooks/use-fetch-movie';
 import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { TOGGLE_FAVOURITE_MOVIE } from 'redux/action-types';
+import { IMovieTableRow } from 'redux/reducers/movie';
 
-interface IMovieTable {
-  movieList?: any;
-}
 interface FavWrapper {
   isActive?: boolean;
 }
 const FavWrapper = styled.div<FavWrapper>`
   svg {
     font-size: 1rem;
-    fill: ${(props) => (props.isActive ? 'yellow' : '#ccc')};
+    fill: ${(props) => (props.isActive ? '#d7d72b' : '#ccc')};
   }
 `;
-const MovieTable: FunctionComponent<IMovieTable> = ({ movieList }) => {
-  const location = useLocation();
-  const dispatch = useDispatch();
 
-  const onToggleFavourite = useCallback(
-    (row: IMovieTableRow) => {
-      dispatch({ type: TOGGLE_FAVOURITE_MOVIE, payload: row });
-    },
-    [dispatch]
-  );
+interface IMovieTable {
+  movieList?: any;
+  onToggleFavourite: any;
+  loading?: boolean;
+}
+const MovieTable: FunctionComponent<IMovieTable> = ({
+  movieList,
+  onToggleFavourite,
+  loading = false,
+}) => {
+  const location = useLocation();
 
   const header: ITableHeaderProps[] = [
     {

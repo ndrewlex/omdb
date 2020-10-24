@@ -14,11 +14,17 @@ const Wrapper = styled.div`
   width: 85vw;
   margin: auto;
   margin-top: 2rem;
+  @media (max-width: 768px) {
+    width: 90vw;
+  }
 `;
 
 const PageWrapper = styled.div`
   padding: 2rem 4rem;
   /* background-color: ${(props) => props.theme.color.lightGray}; */
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 function App() {

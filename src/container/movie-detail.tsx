@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo } from 'react';
-import useFetchMovie, { IMovieData, IRating } from 'hooks/use-fetch-movie';
+import React, { useEffect } from 'react';
+import useFetchMovie, { IMovieData, IRating } from 'hooks/use-movie-detail';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import imdb from 'assets/icon/imdb.svg';
 import rotten from 'assets/icon/rotten-tommato.svg';
 import metacritic from 'assets/icon/metacritic.svg';
+import { Container, Row, Col } from 'reactstrap';
 
 const getRatingIcon = (source: string) => {
   switch (source) {
@@ -17,9 +18,7 @@ const getRatingIcon = (source: string) => {
   }
 };
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+const Wrapper = styled(Container)`
   svg {
     font-size: 2rem;
   }
@@ -27,7 +26,7 @@ const Wrapper = styled.div`
 
 const RatingsGroup = styled.div`
   display: flex;
-
+  margin-bottom: 20px;
   .group-icon {
     display: flex;
     flex-direction: column;
@@ -58,11 +57,6 @@ const RatingsGroup = styled.div`
   }
 `;
 
-const MovieContent = styled.div`
-  display: flex;
-  justify-content: flex-start;
-`;
-
 const MovieInfo = styled.div`
   flex: 4;
 `;
@@ -71,6 +65,8 @@ const MovieImage = styled.div`
   flex: 1;
   height: 300px;
   margin: auto 0;
+  margin-right: 20px;
+  margin-bottom: 20px;
   img {
     height: 300px;
     width: auto;
@@ -79,7 +75,7 @@ const MovieImage = styled.div`
 
 const MovieDetail = () => {
   const { id }: any = useParams();
-  const { getMovie, movieList, loading } = useFetchMovie();
+  const { getMovie, movieData, loading } = useFetchMovie();
   useEffect(() => {
     getMovie({ i: id });
   }, []);
@@ -94,35 +90,55 @@ const MovieDetail = () => {
     Plot,
     Awards,
     Ratings = [],
-  }: IMovieData = useMemo(() => movieList?.[0] ?? {}, [movieList]);
+    BoxOffice,
+    Genre,
+    Country,
+    Rated,
+    Writer,
+    Language,
+  }: IMovieData = movieData;
 
   return (
     <Wrapper>
-      <h1>
-        {Title} ({Year})
-      </h1>
-      <RatingsGroup>
-        {Ratings.map((item: IRating) => {
-          const { Source = '', Value } = item ?? {};
-          return (
-            <div className="group-icon">
-              <div className="icon">
-                <img src={getRatingIcon(Source)}></img>
+      <Row>
+        <h1>
+          {Title} {Year && `(${Year})`}
+        </h1>
+      </Row>
+      <Row>
+        <RatingsGroup>
+          {Ratings.map((item: IRating) => {
+            const { Source = '', Value } = item ?? {};
+            return (
+              <div className="group-icon">
+                <div className="icon">
+                  <img src={getRatingIcon(Source)}></img>
+                </div>
+                <p className="value">{Value}</p>
               </div>
-              <p className="value">{Value}</p>
-            </div>
-          );
-        })}
-      </RatingsGroup>
-      <MovieContent>
-        <MovieImage>
-          <img src={Poster} />
-        </MovieImage>
-        <MovieInfo>
-          <p>Direactor: {Director}</p>
-          <p>Actors: {Actors}</p>
-        </MovieInfo>
-      </MovieContent>
+            );
+          })}
+        </RatingsGroup>
+      </Row>
+      <Row>
+        <Col md={3} sm={6} xs="12">
+          <MovieImage>
+            <img src={Poster} />
+          </MovieImage>
+        </Col>
+        <Col md={9} sm={6} xs="12">
+          <MovieInfo>
+            <p>Direactor: {Director}</p>
+            <p>Actors: {Actors}</p>
+            <p>Plot: {Plot}</p>
+            <p>Released: {Released}</p>
+            <p>Awards: {Awards}</p>
+            <p>Genre: {Genre}</p>
+            <p>Country: {Country}</p>
+            <p>Box Office: {BoxOffice}</p>
+          </MovieInfo>
+        </Col>
+      </Row>
     </Wrapper>
   );
 };

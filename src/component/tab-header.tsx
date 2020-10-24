@@ -18,6 +18,9 @@ const Item = styled(NavLink)`
   &:hover {
     color: black;
   }
+  @media (max-width: 768px) {
+    padding: 8px 13px;
+  }
 `;
 
 interface ITabHeaderProps {

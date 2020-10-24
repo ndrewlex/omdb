@@ -2,7 +2,7 @@ import SearchBar from 'component/search-bar';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MovieTable from 'container/movie-table';
-import useFetchMovie from 'hooks/use-fetch-movie';
+import useSearchMovie from 'hooks/use-search-movie';
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ const Header = styled.div`
 `;
 
 const SearchMoviePage = () => {
-  const { getMovie, movieList, loading } = useFetchMovie();
+  const { getMovie, movieList, loading, onToggleFavourite } = useSearchMovie();
   const [title, setTitle] = useState('');
   const [search, setSearch] = useState({});
 
@@ -41,7 +41,11 @@ const SearchMoviePage = () => {
       <Header>
         <SearchBar onChange={onChange} onSearch={onSearch} />
       </Header>
-      <MovieTable movieList={movieList} />
+      <MovieTable
+        movieList={movieList}
+        onToggleFavourite={onToggleFavourite}
+        loading={loading}
+      />
     </Wrapper>
   );
 };

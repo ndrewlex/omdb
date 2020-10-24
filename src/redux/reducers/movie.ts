@@ -1,20 +1,17 @@
-import { IMovieTableRow } from 'hooks/use-fetch-movie';
 import { TOGGLE_FAVOURITE_MOVIE, GET_SEARCH_MOVIE } from '../action-types';
+
+export interface IMovieTableRow {
+  Title: string;
+  Year: string;
+  imdbID: string;
+  isFavourite?: boolean;
+}
 
 export interface IMovieReducerState {
   favouriteMovieList: IMovieTableRow[];
-  searchMovieList: IMovieTableRow[];
 }
 const initialState: IMovieReducerState = {
-  favouriteMovieList: [
-    {
-      Title: 'TEST',
-      Year: '2020',
-      imdbID: '1323',
-      isFavourite: true,
-    },
-  ],
-  searchMovieList: [],
+  favouriteMovieList: [],
 };
 
 interface IActionType {
